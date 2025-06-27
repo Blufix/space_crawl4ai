@@ -50,6 +50,20 @@ jobs:
           github_id_token: ${{ steps.idtoken.outputs.result }}
         env:
           NODE_VERSION: '20'
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          VITE_CRAWL4AI_API_URL: ${{ secrets.VITE_CRAWL4AI_API_URL }}
+          VITE_CRAWL4AI_API_KEY: ${{ secrets.VITE_CRAWL4AI_API_KEY }}
+          VITE_OPENAI_API_KEY: ${{ secrets.VITE_OPENAI_API_KEY }}
+          VITE_OPENAI_MODEL: ${{ secrets.VITE_OPENAI_MODEL }}
+          VITE_CRAWL4AI_MAX_DEPTH: ${{ secrets.VITE_CRAWL4AI_MAX_DEPTH }}
+          VITE_CRAWL4AI_MAX_PAGES: ${{ secrets.VITE_CRAWL4AI_MAX_PAGES }}
+          VITE_CRAWL4AI_STRATEGY: ${{ secrets.VITE_CRAWL4AI_STRATEGY }}
+          VITE_CRAWL4AI_BATCH_SIZE: ${{ secrets.VITE_CRAWL4AI_BATCH_SIZE }}
+          VITE_CRAWL4AI_COOL_OFF_DELAY: ${{ secrets.VITE_CRAWL4AI_COOL_OFF_DELAY }}
+          VITE_CRAWL4AI_MAX_RETRIES: ${{ secrets.VITE_CRAWL4AI_MAX_RETRIES }}
+          VITE_USE_LOCAL_PROXY: ${{ secrets.VITE_USE_LOCAL_PROXY }}
+          VITE_BEARER_TOKEN: ${{ secrets.VITE_BEARER_TOKEN }}
           ###### End of Repository/Build Configurations ######
 
   close_pull_request_job:

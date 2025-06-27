@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { supabaseService, type Document } from '../services/supabase';
+import { supabaseService, supabase, type Document } from '../services/supabase';
 
 interface CrawlHistoryStats {
   totalPages: number;
@@ -39,7 +39,6 @@ export default function CrawlHistory() {
     
     try {
       // Use the supabase client from the imported service
-      const { supabase } = await import('../services/supabase');
       
       // Get total count with timeout protection
       console.log('🔢 Getting total page count...');

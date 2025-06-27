@@ -1,6 +1,7 @@
 import axios from 'axios';
 import type { AxiosInstance } from 'axios';
 import type { SimplifiedCrawlConfig, CrawlResult } from '../types';
+import { supabaseService } from './supabase';
 
 // Event emitter for real-time crawl updates
 export interface CrawlEvent {
@@ -710,7 +711,7 @@ class SimplifiedCrawl4AIService extends EventEmitter {
       const content = fitMarkdown || rawMarkdown || extractedContent || htmlContent || '';
       
       if (content.trim()) {
-        const { supabaseService } = await import('./supabase');
+        // Use imported supabaseService
         
         const pageResult: CrawlResult = {
           id: result.task_id || result.id || crypto.randomUUID(),
@@ -902,7 +903,7 @@ class SimplifiedCrawl4AIService extends EventEmitter {
 
       if (content.trim()) {
         try {
-          const { supabaseService } = await import('./supabase');
+          // Use imported supabaseService
           
           const pageResult: CrawlResult = {
             id: result.task_id || result.id || crypto.randomUUID(),

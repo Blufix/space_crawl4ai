@@ -36,7 +36,8 @@
       "Bash(az group:*)",
       "Bash(az staticwebapp show:*)",
       "Bash(az staticwebapp appsettings list:*)",
-      "Bash(az staticwebapp environment list:*)"
+      "Bash(az staticwebapp environment list:*)",
+      "Bash(az staticwebapp update:*)"
     ],
     "deny": []
   }

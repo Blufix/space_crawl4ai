@@ -30,7 +30,13 @@
       "Bash(git commit:*)",
       "Bash(git config:*)",
       "Bash(git push:*)",
-      "Bash(git remote set-url:*)"
+      "Bash(git remote set-url:*)",
+      "Bash(az account:*)",
+      "Bash(az staticwebapp list:*)",
+      "Bash(az group:*)",
+      "Bash(az staticwebapp show:*)",
+      "Bash(az staticwebapp appsettings list:*)",
+      "Bash(az staticwebapp environment list:*)"
     ],
     "deny": []
   }

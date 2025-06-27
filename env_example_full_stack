@@ -1,0 +1,267 @@
+# Change the name of this file to .env after updating it!
+
+############
+# [required] 
+# n8n credentials - use the command `openssl rand -hex 32` to generate both
+#   openssl is available by default on Linux/Mac
+#   For Windows, you can use the 'Git Bash' terminal installed with git
+#   Or run the command: python -c "import secrets; print(secrets.token_hex(32))"
+# Bearer Fghsj8736jsl-oiwus 
+############
+
+N8N_ENCRYPTION_KEY=7383f221614189a29c5c593c5636e5083fadc547fafca9bcbb9a1c42c2072bfc
+N8N_USER_MANAGEMENT_JWT_SECRET=41bc21cf6ecf07a1f1d226cc0d96939810e56b8e03502a004f6226fef5e5aea9
+
+
+############
+# [required]
+# Supabase Secrets
+
+# YOU MUST CHANGE THESE BEFORE GOING INTO PRODUCTION
+# Read these docs for any help: https://supabase.com/docs/guides/self-hosting/docker
+# For the JWT Secret and keys, see: https://supabase.com/docs/guides/self-hosting/docker#generate-api-keys
+# For the other secrets, see: https://supabase.com/docs/guides/self-hosting/docker#update-secrets
+# You can really decide any value for POOLER_TENANT_ID like 1000.
+
+# Note that using special symbols (like '%') can complicate things a bit for your Postgres password.
+# If you use special symbols in your Postgres password, you must remember to percent-encode your password later if using the Postgres connection string, for example, postgresql://postgres.projectref:p%3Dword@aws-0-us-east-1.pooler.supabase.com:6543/postgres
+############
+
+POSTGRES_PASSWORD=Dfgytw6745g
+JWT_SECRET=tT5F4V7oAIWeaWRy39fNwgMtpfkKUdXV378G9MTm
+ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzQ5NzY5MjAwLCJleHAiOjE5MDc1MzU2MDB9.d6Xn7hQ3doXnA5Rqnmio-YCNZoxsy-8jCSbQ4K4GE6w
+SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic2VydmljZV9yb2xlIiwiaXNzIjoic3VwYWJhc2UiLCJpYXQiOjE3NDk3NjkyMDAsImV4cCI6MTkwNzUzNTYwMH0.E8qxQiw1Ttso7eEPjAXUsqGelNidhuksE8gKWRcxUcg
+DASHBOARD_USERNAME=supabase
+DASHBOARD_PASSWORD=Fghsjieyr763
+POOLER_TENANT_ID=1000
+
+############
+# [required]
+# Neo4j username and password
+# Replace "neo4j" with your chosen username and "password" with your chosen password.
+# Keep the "/" as a separator between the two.
+############
+
+NEO4J_AUTH=neo4j/Dfghtye645
+
+############
+# [required]
+# Langfuse credentials
+# Each of the secret keys you can set to whatever you want, just make it secure!
+# For the encryption key, use the command `openssl rand -hex 32`
+#   openssl is available by defualt on Linux/Mac
+#   For Windows, you can use the 'Git Bash' terminal installed with git
+############
+
+CLICKHOUSE_PASSWORD=hfgjhjs76
+MINIO_ROOT_PASSWORD=hfgjhjs76
+LANGFUSE_SALT=hfgjhjs76
+NEXTAUTH_SECRET=hfgjhjs76
+ENCRYPTION_KEY=6f446bdaa907ff4605f7f5f1173aebb2068aff767e7e5c3a980bc6d48597a56a # generate via `openssl rand -hex 32`
+
+############
+# [required for prod]
+# Caddy Config
+
+# By default listen on https://localhost:[service port] and don't use an email for SSL
+# To change this for production:
+# Uncomment all of these environment variables for the services you want exposed
+# Note that you might not want to expose Ollama or SearXNG since they aren't secured by default
+# Replace the placeholder value with the host for each service (like n8n.yourdomain.com)
+# Replace internal by your email (require to create a Let's Encrypt certificate)
+############
+
+N8N_HOSTNAME=n8n.blufix.co.uk
+WEBUI_HOSTNAME=openwebui.blufix.co.uk
+# FLOWISE_HOSTNAME=flowise.yourdomain.com
+CRAWL4AI=crawl4ai.blufix.co.uk
+SUPABASE_HOSTNAME=supabase.blufix.co.uk
+# LANGFUSE_HOSTNAME=langfuse.yourdomain.com
+# OLLAMA_HOSTNAME=ollama.yourdomain.com
+SEARXNG_HOSTNAME=searxng.blufix.co.uk
+# NEO4J_HOSTNAME=neo4j.yourdomain.com
+LETSENCRYPT_EMAIL=support@blufix.co.uk
+
+
+
+# Everything below this point is optional.
+# Default values will suffice unless you need more features/customization.
+
+   #
+   #
+#######
+ #####
+   #
+
+############
+# Optional Google Authentication for Supabase
+# Get these values from the Google Admin Console
+############
+# ENABLE_GOOGLE_SIGNUP=true
+# GOOGLE_CLIENT_ID=
+# GOOGLE_CLIENT_SECRET=
+# GOOGLE_REDIRECT_URI=
+
+############
+# Optional SearXNG Config
+# If you run a very small or a very large instance, you might want to change the amount of used uwsgi workers and threads per worker
+# More workers (= processes) means that more search requests can be handled at the same time, but it also causes more resource usage
+############
+
+# SEARXNG_UWSGI_WORKERS=4
+# SEARXNG_UWSGI_THREADS=4
+BEARER_TOKEN=testauth
+SEARXNG_BASE_URL=http://searxng:8080
+
+############
+# Database - You can change these to any PostgreSQL database that has logical replication enabled.
+############
+
+POSTGRES_HOST=db
+POSTGRES_DB=postgres
+POSTGRES_PORT=5432
+# default user is postgres
+POSTGRES_USER=postgres
+
+############
+# Supavisor -- Database pooler and others that can be left as default values
+############
+POOLER_PROXY_PORT_TRANSACTION=6543
+POOLER_DEFAULT_POOL_SIZE=20
+POOLER_MAX_CLIENT_CONN=100
+SECRET_KEY_BASE=UpNVntn3cDxHJpq99YMc1T1AQgQpc8kfYTuRgBiYa15BLrx8etQoXz3gZv1/u2oq
+VAULT_ENC_KEY=your-32-character-encryption-key
+
+
+############
+# API Proxy - Configuration for the Kong Reverse proxy.
+############
+
+KONG_HTTP_PORT=8000
+KONG_HTTPS_PORT=8443
+
+
+############
+# API - Configuration for PostgREST.
+############
+
+PGRST_DB_SCHEMAS=public,storage,graphql_public
+
+############
+# Flowise - Authentication Configuration for Flowise.
+############
+FLOWISE_USERNAME=jamie@blufix.co.uk
+FLOWISE_PASSWORD=Fgjsi987!aj
+
+
+############
+# Auth - Configuration for the GoTrue authentication server.
+############
+
+## General
+SITE_URL=http://localhost:3000
+ADDITIONAL_REDIRECT_URLS=
+JWT_EXPIRY=3600
+DISABLE_SIGNUP=false
+API_EXTERNAL_URL=http://localhost:8000
+
+## Mailer Config
+MAILER_URLPATHS_CONFIRMATION="/auth/v1/verify"
+MAILER_URLPATHS_INVITE="/auth/v1/verify"
+MAILER_URLPATHS_RECOVERY="/auth/v1/verify"
+MAILER_URLPATHS_EMAIL_CHANGE="/auth/v1/verify"
+
+## Email auth
+ENABLE_EMAIL_SIGNUP=true
+ENABLE_EMAIL_AUTOCONFIRM=true
+SMTP_ADMIN_EMAIL=admin@example.com
+SMTP_HOST=supabase-mail
+SMTP_PORT=2500
+SMTP_USER=fake_mail_user
+SMTP_PASS=fake_mail_password
+SMTP_SENDER_NAME=fake_sender
+ENABLE_ANONYMOUS_USERS=false
+
+## Phone auth
+ENABLE_PHONE_SIGNUP=true
+ENABLE_PHONE_AUTOCONFIRM=true
+
+
+############
+# Studio - Configuration for the Dashboard
+############
+
+STUDIO_DEFAULT_ORGANIZATION=Default Organization
+STUDIO_DEFAULT_PROJECT=Default Project
+
+STUDIO_PORT=3000
+# replace if you intend to use Studio outside of localhost
+SUPABASE_PUBLIC_URL=http://localhost:8000
+
+# Enable webp support
+IMGPROXY_ENABLE_WEBP_DETECTION=true
+
+# Add your OpenAI API key to enable SQL Editor Assistant
+OPENAI_API_KEY=
+
+
+############
+# Functions - Configuration for Functions
+############
+# NOTE: VERIFY_JWT applies to all functions. Per-function VERIFY_JWT is not supported yet.
+FUNCTIONS_VERIFY_JWT=false
+
+
+############
+# Logs - Configuration for Analytics
+# Please refer to https://supabase.com/docs/reference/self-hosting-analytics/introduction
+############
+
+# Change vector.toml sinks to reflect this change
+# these cannot be the same value
+LOGFLARE_PUBLIC_ACCESS_TOKEN=your-super-secret-and-long-logflare-key-public
+LOGFLARE_PRIVATE_ACCESS_TOKEN=your-super-secret-and-long-logflare-key-private
+
+# Docker socket location - this value will differ depending on your OS
+DOCKER_SOCKET_LOCATION=/var/run/docker.sock
+
+# Google Cloud Project details
+GOOGLE_PROJECT_ID=GOOGLE_PROJECT_ID
+GOOGLE_PROJECT_NUMBER=GOOGLE_PROJECT_NUMBER
+
+# Base URL for the OpenAI compatible instance (default is http://localhost:11434/v1 for ollama)
+# OpenAI: https://api.openai.com/v1
+# Ollama (example): http://localhost:11434/v1
+# OpenRouter: https://openrouter.ai/api/v1
+LLM_BASE_URL=http://ollama:11434/v1
+
+# OpenAI: https://help.openai.com/en/articles/4936850-where-do-i-find-my-openai-api-key
+# Open Router: Get your API Key here after registering: https://openrouter.ai/keys
+# Ollama: No need to set this unless you specifically configured an API key
+LLM_API_KEY=ollama
+
+# The LLM you want to use for the agents. Make sure this LLM supports tools (especially important if using Ollama)!
+# Ollama example: qwen3:14b
+# OpenAI example: gpt-4o-mini
+# OpenRouter example: anthropic/claude-3.7-sonnet
+LLM_CHOICE=qwen2.5:32b-instruct-q4_K_M
+
+# Supabase configuration - get these values from your .env for local AI
+# For the local AI package - this will be:
+#    http://localhost:8000 if your agent is running outside of Docker
+#    http://kong:8000 if your agent is running in a container in the local-ai network
+SUPABASE_URL=http://kong:8000
+SUPABASE_SERVICE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic2VydmljZV9yb2xlIiwiaXNzIjoic3VwYWJhc2UiLCJpYXQiOjE3NDk3NjkyMDAsImV4cCI6MTkwNzUzNTYwMH0.E8qxQiw1Ttso7eEPjAXUsqGelNidhuksE8gKWRcxUcg
+
+# Set the SearXNG endpoint if using SearXNG for agent web search
+# For the local AI package - this will be:
+#    http://localhost:8081 if your agent is running outside of Docker
+#    http://searxng:8080 if your agent is running in a container in the local-ai network
+SEARXNG_BASE_URL=http://searxng:8080
+
+# Bearer token for your API endpoint
+# This is the content that comes after "Bearer "
+BEARER_TOKEN=testauth
+
+# Set this if you are running the OpenAI compatible demo and want to test with OpenAI
+OPENAI_API_KEY=

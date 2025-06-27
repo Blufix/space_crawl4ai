@@ -37,7 +37,11 @@
       "Bash(az staticwebapp show:*)",
       "Bash(az staticwebapp appsettings list:*)",
       "Bash(az staticwebapp environment list:*)",
-      "Bash(az staticwebapp update:*)"
+      "Bash(az staticwebapp update:*)",
+      "Bash(az containerapp show:*)",
+      "Bash(az containerapp replica list:*)",
+      "Bash(az containerapp logs show:*)",
+      "Bash(az containerapp revision list:*)"
     ],
     "deny": []
   }

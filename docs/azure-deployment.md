@@ -92,7 +92,7 @@ VITE_CRAWL4AI_MAX_RETRIES=3
 az staticwebapp appsettings set \
   --name dashboard-static-app \
   --setting-names \
-    VITE_CRAWL4AI_API_URL="https://aca-crawl4ai.delightfulhill-db34dc69.westeurope.azurecontainerapps.io" \
+    VITE_CRAWL4AI_API_URL=
     VITE_CRAWL4AI_API_KEY="Bearer your_actual_api_key" \
     VITE_SUPABASE_URL="your_actual_supabase_url" \
     VITE_SUPABASE_ANON_KEY="your_actual_supabase_anon_key" \

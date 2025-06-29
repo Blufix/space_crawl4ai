@@ -16,7 +16,7 @@ cp .env.example .env
 
 2. Fill in your environment variables:
 ```bash
-VITE_CRAWL4AI_API_URL=https://aca-crawl4ai.delightfulhill-db34dc69.westeurope.azurecontainerapps.io
+VITE_CRAWL4AI_API_URL=
 VITE_RUBERA_TOKEN=your_rubera_token_here
 VITE_SUPABASE_URL=your_supabase_url_here
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key_here

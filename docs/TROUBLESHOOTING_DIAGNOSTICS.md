@@ -15,7 +15,7 @@
 ## Technical Details
 
 ### Environment Configuration
-- **Supabase URL**: `https://supabase.blufix.co.uk`
+- **Supabase URL**: 
 - **Connection Method**: Direct HTTPS (not using Kong proxy)
 - **Current Setting**: `VITE_USE_LOCAL_PROXY=false` in `.env`
 - **OpenAI Integration**: Configured with `text-embedding-3-small` model

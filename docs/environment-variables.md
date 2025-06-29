@@ -10,7 +10,7 @@ This document outlines all environment variables required for the Dashboard appl
 
 | Variable | Description | Example Value | Required |
 |----------|-------------|---------------|----------|
-| `VITE_CRAWL4AI_API_URL` | Crawl4AI API endpoint | `https://aca-crawl4ai.delightfulhill-db34dc69.westeurope.azurecontainerapps.io` | Yes |
+| `VITE_CRAWL4AI_API_URL` | Crawl4AI API endpoint | `your url` | Yes |
 | `VITE_CRAWL4AI_API_KEY` | API authentication key | `Bearer your_api_key_here` | Yes |
 | `VITE_CRAWL4AI_MAX_DEPTH` | Maximum crawl depth | `10` | No |
 | `VITE_CRAWL4AI_MAX_PAGES` | Maximum pages to crawl | `5000` | No |
@@ -34,7 +34,7 @@ Create a `.env` file in the project root:
 
 ```bash
 # Crawl4AI Configuration
-VITE_CRAWL4AI_API_URL=https://aca-crawl4ai.delightfulhill-db34dc69.westeurope.azurecontainerapps.io
+VITE_CRAWL4AI_API_URL=
 VITE_CRAWL4AI_API_KEY=Bearer your_api_key_here
 VITE_SUPABASE_URL=your_supabase_url_here
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key_here
@@ -58,7 +58,7 @@ VITE_CRAWL4AI_MAX_RETRIES=3
 az staticwebapp appsettings set \
   --name dashboard-static-app \
   --setting-names \
-    VITE_CRAWL4AI_API_URL="https://aca-crawl4ai.delightfulhill-db34dc69.westeurope.azurecontainerapps.io" \
+    VITE_CRAWL4AI_API_URL=
     VITE_CRAWL4AI_API_KEY="Bearer your_actual_api_key" \
     VITE_SUPABASE_URL="your_actual_supabase_url" \
     VITE_SUPABASE_ANON_KEY="your_actual_supabase_anon_key" \
@@ -125,7 +125,7 @@ VITE_SUPABASE_URL=https://dev-project.supabase.co
 #### Production Environment
 ```bash
 # Use production endpoints
-VITE_CRAWL4AI_API_URL=https://aca-crawl4ai.delightfulhill-db34dc69.westeurope.azurecontainerapps.io
+VITE_CRAWL4AI_API_URL=
 VITE_SUPABASE_URL=https://prod-project.supabase.co
 ```
 
@@ -214,7 +214,7 @@ VITE_CRAWL4AI_MAX_RETRIES=2
 ### Production Template
 ```bash
 # Production values (use in Azure/GitHub Secrets)
-VITE_CRAWL4AI_API_URL=https://aca-crawl4ai.delightfulhill-db34dc69.westeurope.azurecontainerapps.io
+VITE_CRAWL4AI_API_URL=
 VITE_CRAWL4AI_API_KEY=Bearer prod_api_key
 VITE_SUPABASE_URL=https://prod-project.supabase.co
 VITE_SUPABASE_ANON_KEY=prod_anon_key

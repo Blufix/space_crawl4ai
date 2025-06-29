@@ -35,7 +35,7 @@ A modern, responsive web dashboard for the Crawl4AI web crawling service. Built 
 
 ### **Crawl4AI Backend Service**
 Our Crawl4AI instance is hosted on **Azure Container Apps** in the West Europe region:
-- **Service URL**: `https://aca-crawl4ai.delightfulhill-db34dc69.westeurope.azurecontainerapps.io`
+- **Service URL**: 
 - **Docker Image**: Official Crawl4AI image from Docker Hub
 - **CORS Configuration**: Enabled for local development (`localhost:5173`)
 - **Features**: Full Crawl4AI API with deep crawling, LLM extraction, and batch processing

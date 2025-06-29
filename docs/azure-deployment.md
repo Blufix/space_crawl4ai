@@ -73,7 +73,7 @@ az staticwebapp create \
 Your application requires these environment variables:
 
 ```bash
-VITE_CRAWL4AI_API_URL=https://aca-crawl4ai.delightfulhill-db34dc69.westeurope.azurecontainerapps.io
+VITE_CRAWL4AI_API_URL=
 VITE_CRAWL4AI_API_KEY=Bearer your_api_key_here
 VITE_SUPABASE_URL=your_supabase_url_here
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key_here

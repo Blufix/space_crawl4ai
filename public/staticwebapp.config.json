@@ -1,6 +1,7 @@
 {
   "auth": {
-    "rolesSource": "DEFAULT"
+    "rolesSource": "DEFAULT",
+    "identityProviders": {}
   },
   "routes": [
     {

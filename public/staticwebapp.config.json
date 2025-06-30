@@ -3,13 +3,13 @@
     "identityProviders": {
       "azureActiveDirectory": {
         "registration": {
-          "openIdIssuer": "https://login.microsoftonline.com/ed2f533a-5bb5-4d2a-9dba-82676ecb107b/v2.0",
+          "openIdIssuer": "https://login.microsoftonline.com/{AZURE_TENANT_ID}/v2.0",
           "clientIdSettingName": "AZURE_CLIENT_ID",
           "clientSecretSettingName": "AZURE_CLIENT_SECRET"
         },
         "login": {
           "loginParameters": [
-            "domain_hint=blufix.co.uk"
+            "domain_hint={AZURE_DOMAIN_HINT}"
           ]
         }
       }

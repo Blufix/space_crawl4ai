@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "npm run config:update && tsc -b && vite build",
+    "build:prod": "npm run config:update && npm run build",
+    "config:update": "node scripts/update-config.js",
     "lint": "eslint .",
     "preview": "vite preview"
   },

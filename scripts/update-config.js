@@ -40,6 +40,10 @@ Object.entries(replacements).forEach(([key, value]) => {
 // Validate that all placeholders were replaced
 if (configContent.includes('{AZURE_')) {
   console.warn('⚠️  Warning: Some placeholders were not replaced. Check environment variables.');
+  console.warn('📋  Please configure these GitHub repository secrets:');
+  console.warn('   - AZURE_TENANT_ID');
+  console.warn('   - AZURE_DOMAIN_HINT');
+  console.warn('📖  See docs/github-secrets-setup.md for detailed setup instructions');
   process.exit(1);
 }
 

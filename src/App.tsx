@@ -5,6 +5,7 @@ import { settingsService } from './services/settings';
 import CrawlHistory from './components/CrawlHistory';
 import CrawlStatusDashboard from './components/CrawlStatusDashboard';
 import TableManager from './components/TableManager';
+import AuthenticationWrapper from './components/AuthenticationWrapper';
 import type { SimplifiedCrawlConfig, CrawlResult } from './types';
 
 function App() {
@@ -178,7 +179,8 @@ function App() {
   }, []);
 
   return (
-    <div className="space-app">
+    <AuthenticationWrapper>
+      <div className="space-app">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
 
@@ -1113,7 +1115,8 @@ function App() {
           </div>
         </div>
       </main>
-    </div>
+      </div>
+    </AuthenticationWrapper>
   );
 }
 

@@ -17,7 +17,7 @@
   },
   "routes": [
     {
-      "route": "/.auth/**",
+      "route": "/.auth/*",
       "allowedRoles": ["anonymous"]
     },
     {
@@ -37,7 +37,7 @@
   ],
   "navigationFallback": {
     "rewrite": "/index.html",
-    "exclude": ["/images/*", "/css/*", "/.auth/**"]
+    "exclude": ["/images/*", "/css/*", "/.auth/*"]
   },
   "mimeTypes": {
     ".json": "application/json",

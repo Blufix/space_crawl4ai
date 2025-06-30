@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "auth": {
     "rolesSource": "DEFAULT",
@@ -46,3 +47,6 @@
     ".css": "text/css"
   }
 }
+=======
+{"routes":[{"route":"/.auth/*","allowedRoles":["anonymous"]},{"route":"/login","serve":"/.auth/login/aad","statusCode":302},{"route":"/logout","serve":"/.auth/logout","statusCode":302},{"route":"/*","allowedRoles":["authenticated"]}],"navigationFallback":{"rewrite":"/index.html","exclude":["/images/*","/css/*","/.auth/*"]},"mimeTypes":{".json":"application/json",".js":"application/javascript",".css":"text/css"}}
+>>>>>>> 45ca0a3c715a5585716f5768eb7daa08fb690406

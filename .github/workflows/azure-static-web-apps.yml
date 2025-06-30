@@ -29,36 +29,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
       
-      - name: Update configuration with secrets
-        env:
-          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-          AZURE_DOMAIN_HINT: ${{ secrets.AZURE_DOMAIN_HINT }}
-        run: |
-          echo "Debug: Checking if secrets are available..."
-          echo "AZURE_TENANT_ID is: $([ -n "$AZURE_TENANT_ID" ] && echo "SET" || echo "NOT_SET")"
-          echo "AZURE_DOMAIN_HINT is: $([ -n "$AZURE_DOMAIN_HINT" ] && echo "SET" || echo "NOT_SET")"
-          npm run config:update
-      
       - name: Run TypeScript check
         run: npx tsc --noEmit
       
       - name: Run linter
         run: npm run lint
         continue-on-error: true
-      
-      - name: Build project
-        run: npm run build
-        env:
-          VITE_CRAWL4AI_API_URL: ${{ secrets.VITE_CRAWL4AI_API_URL }}
-          VITE_CRAWL4AI_API_KEY: ${{ secrets.VITE_CRAWL4AI_API_KEY }}
-          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
-          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
-          VITE_CRAWL4AI_MAX_DEPTH: ${{ secrets.VITE_CRAWL4AI_MAX_DEPTH }}
-          VITE_CRAWL4AI_MAX_PAGES: ${{ secrets.VITE_CRAWL4AI_MAX_PAGES }}
-          VITE_CRAWL4AI_STRATEGY: ${{ secrets.VITE_CRAWL4AI_STRATEGY }}
-          VITE_CRAWL4AI_BATCH_SIZE: ${{ secrets.VITE_CRAWL4AI_BATCH_SIZE }}
-          VITE_CRAWL4AI_COOL_OFF_DELAY: ${{ secrets.VITE_CRAWL4AI_COOL_OFF_DELAY }}
-          VITE_CRAWL4AI_MAX_RETRIES: ${{ secrets.VITE_CRAWL4AI_MAX_RETRIES }}
       
       - name: Build And Deploy
         id: builddeploy
@@ -70,6 +46,19 @@ jobs:
           app_location: "/"
           api_location: ""
           output_location: "dist"
+        env:
+          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          AZURE_DOMAIN_HINT: ${{ secrets.AZURE_DOMAIN_HINT }}
+          VITE_CRAWL4AI_API_URL: ${{ secrets.VITE_CRAWL4AI_API_URL }}
+          VITE_CRAWL4AI_API_KEY: ${{ secrets.VITE_CRAWL4AI_API_KEY }}
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          VITE_CRAWL4AI_MAX_DEPTH: ${{ secrets.VITE_CRAWL4AI_MAX_DEPTH }}
+          VITE_CRAWL4AI_MAX_PAGES: ${{ secrets.VITE_CRAWL4AI_MAX_PAGES }}
+          VITE_CRAWL4AI_STRATEGY: ${{ secrets.VITE_CRAWL4AI_STRATEGY }}
+          VITE_CRAWL4AI_BATCH_SIZE: ${{ secrets.VITE_CRAWL4AI_BATCH_SIZE }}
+          VITE_CRAWL4AI_COOL_OFF_DELAY: ${{ secrets.VITE_CRAWL4AI_COOL_OFF_DELAY }}
+          VITE_CRAWL4AI_MAX_RETRIES: ${{ secrets.VITE_CRAWL4AI_MAX_RETRIES }}
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'

@@ -44,13 +44,22 @@ export default function CrawlStatusDashboard({ isActive, crawlService }: CrawlSt
 
   // Listen to real crawl events from the service
   useEffect(() => {
-    if (!crawlService || !isActive) {
+    if (!crawlService) {
+      return;
+    }
+
+    if (!isActive) {
       setStats(prev => ({ ...prev, status: 'idle' }));
       return;
     }
 
     // Immediately set status to discovering when crawl becomes active
-    setStats(prev => ({ ...prev, status: 'discovering' }));
+    console.log('🚀 Setting status to discovering because isActive=true');
+    setStats(prev => ({ 
+      ...prev, 
+      status: 'discovering',
+      currentUrl: 'Initializing crawl...'
+    }));
 
     const handleCrawlStart = (data: any) => {
       console.log('🎯 Dashboard received crawl_start:', data);
@@ -211,7 +220,9 @@ export default function CrawlStatusDashboard({ isActive, crawlService }: CrawlSt
   // Debug status changes for rocket animation
   useEffect(() => {
     console.log('🚀 Status changed to:', stats.status, '- Rocket should be:', (stats.status === 'crawling' || stats.status === 'discovering') ? 'flying' : 'idle');
-  }, [stats.status]);
+    console.log('🚀 isActive prop:', isActive);
+    console.log('🚀 crawlService available:', !!crawlService);
+  }, [stats.status, isActive, crawlService]);
 
   const getStatusColor = () => {
     switch (stats.status) {
@@ -373,8 +384,16 @@ export default function CrawlStatusDashboard({ isActive, crawlService }: CrawlSt
 
         .rocket {
           font-size: 3rem;
-          animation: ${stats.status === 'crawling' || stats.status === 'discovering' ? 'fly' : 'idle'} ${stats.status === 'crawling' || stats.status === 'discovering' ? '3s' : '6s'} ease-in-out infinite;
           filter: drop-shadow(0 0 10px rgba(141, 215, 247, 0.5));
+          transition: all 0.3s ease;
+        }
+
+        .rocket.flying {
+          animation: fly 3s ease-in-out infinite;
+        }
+
+        .rocket.idle {
+          animation: idle 6s ease-in-out infinite;
         }
 
         @keyframes fly {
@@ -394,8 +413,13 @@ export default function CrawlStatusDashboard({ isActive, crawlService }: CrawlSt
           width: 100px;
           height: 3px;
           background: linear-gradient(90deg, transparent, #8dd7f7, transparent);
-          opacity: ${stats.status === 'crawling' || stats.status === 'discovering' ? '1' : '0'};
+          opacity: 0;
           animation: trail 3s ease-in-out infinite;
+          transition: opacity 0.3s ease;
+        }
+
+        .rocket-trail.active {
+          opacity: 1;
         }
 
         @keyframes trail {
@@ -610,8 +634,11 @@ export default function CrawlStatusDashboard({ isActive, crawlService }: CrawlSt
           </div>
 
           <div className="rocket-area" ref={rocketRef}>
-            <div className="rocket-trail"></div>
-            <div className="rocket">🚀</div>
+            <div className={`rocket-trail ${(stats.status === 'crawling' || stats.status === 'discovering') ? 'active' : ''}`}></div>
+            <div 
+              className={`rocket ${(stats.status === 'crawling' || stats.status === 'discovering') ? 'flying' : 'idle'}`}
+              title={`Status: ${stats.status} | Animation: ${(stats.status === 'crawling' || stats.status === 'discovering') ? 'flying' : 'idle'}`}
+            >🚀</div>
           </div>
         </div>
 

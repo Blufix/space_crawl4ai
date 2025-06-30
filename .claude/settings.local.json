@@ -41,7 +41,8 @@
       "Bash(az containerapp show:*)",
       "Bash(az containerapp replica list:*)",
       "Bash(az containerapp logs show:*)",
-      "Bash(az containerapp revision list:*)"
+      "Bash(az containerapp revision list:*)",
+      "Bash(npm run lint)"
     ],
     "deny": []
   }

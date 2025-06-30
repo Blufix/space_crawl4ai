@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { crawl4aiService } from './services/crawl4ai';
-import { supabaseService } from './services/supabase';
+import { supabaseService, type Document } from './services/supabase';
 import { settingsService } from './services/settings';
 import CrawlHistory from './components/CrawlHistory';
 import CrawlStatusDashboard from './components/CrawlStatusDashboard';
+import TableManager from './components/TableManager';
 import type { SimplifiedCrawlConfig, CrawlResult } from './types';
 
 function App() {
@@ -15,10 +16,11 @@ function App() {
   const [activeTab, setActiveTab] = useState<'crawl' | 'search' | 'results' | 'history' | 'settings'>('crawl');
   const [urlInput, setUrlInput] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [searchResults, setSearchResults] = useState<Document[]>([]);
   const [recentCrawls, setRecentCrawls] = useState<string[]>([]);
   const [appStats, setAppStats] = useState(settingsService.getFormattedStats());
   const [crawlController, setCrawlController] = useState<AbortController | null>(null);
+  const [selectedTable, setSelectedTable] = useState<string>('crawled_pages');
 
   useEffect(() => {
     // Load recent crawls from localStorage
@@ -30,7 +32,7 @@ function App() {
     // Initialize settings and load preferences
     const settings = settingsService.getSettings();
     setCrawlConfig({ crawlType: settings.crawlPreferences.defaultCrawlType });
-    setActiveTab(settings.uiPreferences.defaultTab as any);
+    setActiveTab(settings.uiPreferences.defaultTab as 'crawl' | 'search' | 'results' | 'history' | 'settings');
     setAppStats(settingsService.getFormattedStats());
   }, []);
 
@@ -76,8 +78,10 @@ function App() {
       
       // Record site if it's a new domain
       try {
-        new URL(urlInput).hostname;
-        settingsService.recordSiteCrawled();
+        const hostname = new URL(urlInput).hostname;
+        if (hostname) {
+          settingsService.recordSiteCrawled();
+        }
       } catch {
         // Invalid URL, ignore
       }
@@ -157,6 +161,12 @@ function App() {
   const handleTabClick = (tab: 'crawl' | 'search' | 'results' | 'history' | 'settings', event: React.MouseEvent) => {
     setActiveTab(tab);
     updateTabIndicator(event.currentTarget as HTMLElement);
+  };
+
+  const handleTableChange = (tableName: string) => {
+    setSelectedTable(tableName);
+    supabaseService.setCurrentTable(tableName);
+    console.log('🔄 Switched to table:', tableName);
   };
 
   useEffect(() => {
@@ -751,6 +761,12 @@ function App() {
         <div className="hybrid-component">
           <div className="nav-hub">
             
+            {/* Table Manager */}
+            <TableManager 
+              selectedTable={selectedTable}
+              onTableChange={handleTableChange}
+            />
+
             {/* Main URL Input */}
             <div className="cosmic-search">
               <div className="search-container">
@@ -882,6 +898,8 @@ function App() {
                   <strong>🔭 How it works:</strong><br/>
                   <strong>📄 Single Page:</strong> Extract content from one specific page - fast and focused<br/>
                   <strong>🌐 Smart Site Crawl:</strong> Discover and crawl entire websites using intelligent batch processing. Automatically finds internal links, prioritizes content pages, and processes sites in manageable batches with cool-off periods to respect server resources.
+                  <br/><br/>
+                  <strong>📋 Storage:</strong> All crawled content will be saved to the <code style={{color: '#8dd7f7', background: 'rgba(141, 215, 247, 0.1)', padding: '0.2rem 0.4rem', borderRadius: '4px'}}>{selectedTable}</code> table.
                 </div>
               </div>
 
@@ -891,6 +909,8 @@ function App() {
                 <p className="content-description">
                   Search through your collected web data using advanced vector similarity. 
                   Find relevant information across all your crawled content.
+                  <br/><br/>
+                  <strong>📋 Searching in:</strong> <code style={{color: '#8dd7f7', background: 'rgba(141, 215, 247, 0.1)', padding: '0.2rem 0.4rem', borderRadius: '4px'}}>{selectedTable}</code> table.
                 </p>
                 
                 <div className="cosmic-search">

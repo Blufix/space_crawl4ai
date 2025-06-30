@@ -32,13 +32,55 @@ export interface Document {
 }
 
 export class SupabaseService {
+  private currentTable: string = 'crawled_pages';
+
+  setCurrentTable(tableName: string): void {
+    this.currentTable = tableName;
+    console.log('📋 Switched to table:', tableName);
+  }
+
+  getCurrentTable(): string {
+    return this.currentTable;
+  }
+
+  async getAvailableTables(): Promise<string[]> {
+    try {
+      console.log('🔍 Fetching available crawled_pages-style tables...');
+      
+      const { data, error } = await supabase.rpc('get_crawled_pages_tables');
+      
+      if (error) {
+        console.warn('Failed to get tables via RPC, falling back to predefined list:', error);
+        return this.getPredefinedTables();
+      }
+      
+      const tables = data || this.getPredefinedTables();
+      console.log('✅ Found tables:', tables);
+      return tables;
+    } catch (error) {
+      console.warn('Error fetching tables, using predefined list:', error);
+      return this.getPredefinedTables();
+    }
+  }
+
+  private getPredefinedTables(): string[] {
+    return [
+      'crawled_pages',
+      'microsoft_docs', 
+      'agent_building', 
+      'azure_platforms', 
+      'knowledge_base'
+    ];
+  }
+
+
   async testConnection(): Promise<{ success: boolean; message: string; details?: any }> {
     try {
       console.log('🔍 Testing Supabase connection...');
       
       // Test basic connection and get table structure
       const { data, error, count } = await supabase
-        .from('crawled_pages')
+        .from(this.currentTable)
         .select('*', { count: 'exact' })
         .limit(1);
       
@@ -59,7 +101,7 @@ export class SupabaseService {
         message: `Connected successfully! Found ${count || 0} crawled pages in table.`,
         details: { 
           count, 
-          tableName: 'crawled_pages',
+          tableName: this.currentTable,
           sampleColumns: data?.[0] ? Object.keys(data[0]) : 'Empty table',
         }
       };
@@ -83,7 +125,7 @@ export class SupabaseService {
         : '*'; // All fields for smaller queries
       
       const { data, error } = await supabase
-        .from('crawled_pages')
+        .from(this.currentTable)
         .select(fields)
         .order('created_at', { ascending: false })
         .limit(limit);
@@ -229,8 +271,8 @@ export class SupabaseService {
       console.log('📤 Attempting database upsert...');
       
       // Use upsert with URL and chunk_number as conflict resolution (matches unique constraint)
-      let insertResult = await supabase
-        .from('crawled_pages')
+      const insertResult = await supabase
+        .from(this.currentTable)
         .upsert([document], {
           onConflict: 'url,chunk_number'
         })
@@ -281,15 +323,19 @@ export class SupabaseService {
       // Generate embedding for the search query
       const queryEmbedding = await embeddingsService.generateEmbedding(query);
       
-      // Use your match_crawled_pages function
-      const { data, error } = await supabase.rpc('match_crawled_pages', {
+      // Use the table-specific match function
+      const matchFunction = this.currentTable === 'crawled_pages' 
+        ? 'match_crawled_pages' 
+        : `match_${this.currentTable}`;
+        
+      const { data, error } = await supabase.rpc(matchFunction, {
         query_embedding: queryEmbedding,
         match_count: limit,
         filter: {} // Can be used to filter by metadata
       });
 
       if (error) {
-        console.warn('Vector search with match_crawled_pages failed, falling back to text search:', error);
+        console.warn(`Vector search with ${matchFunction} failed, falling back to text search:`, error);
         return this.searchDocumentsByText(query, limit);
       }
 
@@ -321,7 +367,7 @@ export class SupabaseService {
       console.log('🔍 Performing text search for:', query);
       
       const { data, error } = await supabase
-        .from('crawled_pages')
+        .from(this.currentTable)
         .select('*')
         .or(`content.ilike.%${query}%,metadata->>title.ilike.%${query}%`)
         .order('created_at', { ascending: false })

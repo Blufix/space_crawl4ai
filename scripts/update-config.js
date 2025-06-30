@@ -16,6 +16,11 @@ const configPath = path.join(__dirname, '../public/staticwebapp.config.json');
 // Read the configuration file
 let configContent = fs.readFileSync(configPath, 'utf8');
 
+// Debug: Log environment variables (without exposing values)
+console.log('🔍 Environment check:');
+console.log(`  AZURE_TENANT_ID: ${process.env.AZURE_TENANT_ID ? 'SET' : 'NOT_SET'}`);
+console.log(`  AZURE_DOMAIN_HINT: ${process.env.AZURE_DOMAIN_HINT ? 'SET' : 'NOT_SET'}`);
+
 // Environment variables that should be set in GitHub Actions or Azure DevOps
 const replacements = {
   '{AZURE_TENANT_ID}': process.env.AZURE_TENANT_ID || '{AZURE_TENANT_ID}',

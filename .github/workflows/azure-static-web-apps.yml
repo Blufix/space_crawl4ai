@@ -33,7 +33,11 @@ jobs:
         env:
           AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
           AZURE_DOMAIN_HINT: ${{ secrets.AZURE_DOMAIN_HINT }}
-        run: npm run config:update
+        run: |
+          echo "Debug: Checking if secrets are available..."
+          echo "AZURE_TENANT_ID is: $([ -n "$AZURE_TENANT_ID" ] && echo "SET" || echo "NOT_SET")"
+          echo "AZURE_DOMAIN_HINT is: $([ -n "$AZURE_DOMAIN_HINT" ] && echo "SET" || echo "NOT_SET")"
+          npm run config:update
       
       - name: Run TypeScript check
         run: npx tsc --noEmit

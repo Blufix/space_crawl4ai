@@ -28,7 +28,7 @@
     },
     {
       "route": "/*",
-      "allowedRoles": ["admin", "user"]
+      "allowedRoles": ["authenticated"]
     }
   ],
   "navigationFallback": {

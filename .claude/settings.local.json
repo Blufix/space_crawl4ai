@@ -43,7 +43,8 @@
       "Bash(az containerapp logs show:*)",
       "Bash(az containerapp revision list:*)",
       "Bash(npm run lint)",
-      "Bash(chmod:*)"
+      "Bash(chmod:*)",
+      "Bash(find:*)"
     ],
     "deny": []
   }

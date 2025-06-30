@@ -36,19 +36,15 @@ jobs:
         run: npm run lint
         continue-on-error: true
       
-      - name: Build And Deploy
-        id: builddeploy
-        uses: Azure/static-web-apps-deploy@v1
-        with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          action: "upload"
-          app_location: "/"
-          api_location: ""
-          output_location: "dist"
+      - name: Update configuration with secrets
         env:
           AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
           AZURE_DOMAIN_HINT: ${{ secrets.AZURE_DOMAIN_HINT }}
+        run: node scripts/update-config.js
+      
+      - name: Build project
+        run: npm run build
+        env:
           VITE_CRAWL4AI_API_URL: ${{ secrets.VITE_CRAWL4AI_API_URL }}
           VITE_CRAWL4AI_API_KEY: ${{ secrets.VITE_CRAWL4AI_API_KEY }}
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
@@ -59,6 +55,18 @@ jobs:
           VITE_CRAWL4AI_BATCH_SIZE: ${{ secrets.VITE_CRAWL4AI_BATCH_SIZE }}
           VITE_CRAWL4AI_COOL_OFF_DELAY: ${{ secrets.VITE_CRAWL4AI_COOL_OFF_DELAY }}
           VITE_CRAWL4AI_MAX_RETRIES: ${{ secrets.VITE_CRAWL4AI_MAX_RETRIES }}
+      
+      - name: Deploy to Azure Static Web Apps
+        id: builddeploy
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: "upload"
+          app_location: "/"
+          api_location: ""
+          output_location: "dist"
+          skip_app_build: true
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'

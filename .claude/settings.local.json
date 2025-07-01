@@ -44,7 +44,10 @@
       "Bash(az containerapp revision list:*)",
       "Bash(npm run lint)",
       "Bash(chmod:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "mcp__MCP_DOCKER__brave_web_search",
+      "WebFetch(domain:learn.microsoft.com)",
+      "WebFetch(domain:learn.microsoft.com)"
     ],
     "deny": []
   }
